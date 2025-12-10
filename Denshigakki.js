@@ -61,21 +61,44 @@ document.addEventListener('DOMContentLoaded', () => {
             constructor() {
                 this.reset();
                 this.y = Math.random() * canvas.height;
-                this.opacity = Math.random() * 0.5 + 0.2;
+                this.opacity = Math.random() * 0.6 + 0.2;
+                // カラーバリエーション
+                const colors = [
+                    [255, 255, 255], // 白
+                    [238, 119, 82],  // オレンジ
+                    [231, 60, 126],  // ピンク
+                    [35, 166, 213],  // ブルー
+                    [35, 213, 171],  // エメラルド
+                    [240, 147, 251], // パープル
+                ];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.pulseSpeed = Math.random() * 0.02 + 0.01;
+                this.pulsePhase = Math.random() * Math.PI * 2;
             }
 
             reset() {
                 this.x = Math.random() * canvas.width;
                 this.y = -10;
-                this.size = Math.random() * 3 + 1;
-                this.speedY = Math.random() * 0.5 + 0.2;
-                this.speedX = Math.random() * 0.3 - 0.15;
-                this.opacity = Math.random() * 0.5 + 0.2;
+                this.size = Math.random() * 4 + 1;
+                this.speedY = Math.random() * 0.8 + 0.3;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.6 + 0.2;
+                // 新しい色を設定
+                const colors = [
+                    [255, 255, 255],
+                    [238, 119, 82],
+                    [231, 60, 126],
+                    [35, 166, 213],
+                    [35, 213, 171],
+                    [240, 147, 251],
+                ];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
             }
 
             update() {
                 this.y += this.speedY;
                 this.x += this.speedX;
+                this.pulsePhase += this.pulseSpeed;
 
                 // 画面外に出たらリセット
                 if (this.y > canvas.height) {
@@ -88,9 +111,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             draw() {
+                // パルス効果
+                const pulse = Math.sin(this.pulsePhase) * 0.3 + 0.7;
+                const currentSize = this.size * pulse;
+                const currentOpacity = this.opacity * pulse;
+
+                // グロー効果
+                const gradient = ctx.createRadialGradient(
+                    this.x, this.y, 0,
+                    this.x, this.y, currentSize * 2
+                );
+                gradient.addColorStop(0, `rgba(${this.color[0]}, ${this.color[1]}, ${this.color[2]}, ${currentOpacity})`);
+                gradient.addColorStop(0.5, `rgba(${this.color[0]}, ${this.color[1]}, ${this.color[2]}, ${currentOpacity * 0.5})`);
+                gradient.addColorStop(1, `rgba(${this.color[0]}, ${this.color[1]}, ${this.color[2]}, 0)`);
+
                 ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.arc(this.x, this.y, currentSize * 2, 0, Math.PI * 2);
+                ctx.fillStyle = gradient;
+                ctx.fill();
+
+                // コア
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, currentSize, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(${this.color[0]}, ${this.color[1]}, ${this.color[2]}, ${currentOpacity})`;
                 ctx.fill();
             }
         }
@@ -98,7 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // パーティクルの初期化
         function initParticles() {
             particles = [];
-            const particleCount = Math.floor((canvas.width * canvas.height) / 15000);
+            const particleCount = Math.floor((canvas.width * canvas.height) / 10000);
             for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle());
             }
