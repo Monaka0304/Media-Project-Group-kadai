@@ -23,22 +23,84 @@ body {
     font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
     color: var(--text-color);
     line-height: 1.6;
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab, #f093fb, #4facfe);
     background-size: 400% 400%;
-    animation: gradientAnimation 15s ease infinite;
+    animation: gradientAnimation 20s ease infinite;
     position: relative;
     overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%);
+    animation: pulseAnimation 8s ease-in-out infinite;
+    z-index: -2;
+    pointer-events: none;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(30deg, rgba(255, 255, 255, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.05) 87.5%, rgba(255, 255, 255, 0.05)),
+        linear-gradient(150deg, rgba(255, 255, 255, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.05) 87.5%, rgba(255, 255, 255, 0.05)),
+        linear-gradient(30deg, rgba(255, 255, 255, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.05) 87.5%, rgba(255, 255, 255, 0.05)),
+        linear-gradient(150deg, rgba(255, 255, 255, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.05) 87.5%, rgba(255, 255, 255, 0.05));
+    background-size: 80px 140px;
+    background-position: 0 0, 0 0, 40px 70px, 40px 70px;
+    animation: gridAnimation 30s linear infinite;
+    z-index: -2;
+    pointer-events: none;
+    opacity: 0.3;
 }
 
 @keyframes gradientAnimation {
     0% {
         background-position: 0% 50%;
     }
+    25% {
+        background-position: 50% 100%;
+    }
     50% {
         background-position: 100% 50%;
     }
+    75% {
+        background-position: 50% 0%;
+    }
     100% {
         background-position: 0% 50%;
+    }
+}
+
+@keyframes pulseAnimation {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+}
+
+@keyframes gridAnimation {
+    0% {
+        background-position: 0 0, 0 0, 40px 70px, 40px 70px;
+    }
+    100% {
+        background-position: 80px 140px, 80px 140px, 120px 210px, 120px 210px;
     }
 }
 
@@ -57,12 +119,14 @@ body {
    ヘッダー・ナビゲーション
 ======================================== */
 .main-header {
-    background-color: var(--white);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .nav-container {
@@ -150,27 +214,39 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: transparent;
     color: var(--white);
     text-align: center;
     padding-top: 80px;
+    position: relative;
+}
+
+.hero-content {
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 3rem 4rem;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
 .hero-content h2 {
     font-size: 3rem;
     margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .hero-content p {
     font-size: 1.25rem;
     margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 /* ========================================
    メンバー紹介セクション
 ======================================== */
 #members {
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.85);
 }
 
 .members-grid {
@@ -186,19 +262,22 @@ body {
 }
 
 .member-card {
-    background-color: var(--gray-light);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 1.5rem;
-    border-radius: 8px;
-    transition: transform 0.3s;
+    border-radius: 12px;
+    transition: transform 0.3s, box-shadow 0.3s;
     flex: 0 0 260px; /* 固定幅で横に並べる */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
 }
 
 .member-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
 }
 
 .member-card h3 {
@@ -226,17 +305,19 @@ body {
    テーマ選択理由セクション
 ======================================== */
 #reason {
-    background-color: var(--bg-color);
+    background-color: rgba(248, 249, 250, 0.7);
 }
 
 .reason-content {
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 3rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     border-left: 4px solid var(--accent-color);
     max-width: 900px;
     margin: 0 auto;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .reason-content p {
@@ -249,17 +330,19 @@ body {
    手法論セクション
 ======================================== */
 #methodology {
-    background-color: var(--bg-color);
+    background-color: rgba(248, 249, 250, 0.7);
 }
 
 /* 概要部分 */
 .methodology-overview {
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 2rem;
-    border-radius: 8px;
+    border-radius: 12px;
     margin-bottom: 2rem;
     border-left: 4px solid var(--secondary-color);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .methodology-overview h3 {
@@ -293,17 +376,20 @@ body {
 }
 
 .method-card {
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 2rem;
-    border-radius: 8px;
+    border-radius: 12px;
     border-left: 4px solid var(--secondary-color);
     position: relative;
     transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .method-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
 }
 
 .method-number {
@@ -357,11 +443,13 @@ body {
 }
 
 .example-card {
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 2rem;
-    border-radius: 8px;
+    border-radius: 12px;
     margin-bottom: 2rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .example-card h4 {
@@ -397,10 +485,13 @@ body {
 
 /* 従来の楽器との比較 */
 .methodology-comparison {
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 2rem;
-    border-radius: 8px;
+    border-radius: 12px;
     margin: 3rem 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .methodology-comparison h3 {
@@ -419,14 +510,17 @@ body {
 .comparison-item {
     text-align: center;
     padding: 2rem;
-    background-color: var(--gray-light);
-    border-radius: 8px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
     transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .comparison-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transform: translateY(-8px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 .comparison-image {
@@ -458,7 +552,7 @@ body {
    歴史セクション
 ======================================== */
 #history {
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.85);
 }
 
 .timeline {
@@ -599,7 +693,7 @@ body {
    最新技術セクション
 ======================================== */
 #technology {
-    background-color: var(--bg-color);
+    background-color: rgba(248, 249, 250, 0.7);
 }
 
 .tech-grid {
@@ -629,16 +723,18 @@ body {
 /* 技術カードの詳細スタイル */
 .tech-card {
     position: relative;
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s, box-shadow 0.3s;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .tech-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    transform: translateY(-8px);
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
 }
 
 .tech-number {
@@ -775,14 +871,16 @@ body {
    参考文献セクション
 ======================================== */
 #references {
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.85);
 }
 
 .references-content {
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 .references-content ol {
