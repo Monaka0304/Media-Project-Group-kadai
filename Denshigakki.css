@@ -23,9 +23,10 @@ body {
     font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
     color: var(--text-color);
     line-height: 1.6;
-    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab, #f093fb, #4facfe);
-    background-size: 400% 400%;
-    animation: gradientAnimation 20s ease infinite;
+    background: linear-gradient(to bottom, #f5f7fa 0%, #c3cfe2 100%);
+    background-attachment: fixed;
+    background-size: 200% 200%;
+    animation: gradientAnimation 30s ease infinite;
     position: relative;
     overflow-x: hidden;
 }
@@ -46,41 +47,14 @@ body::before {
     pointer-events: none;
 }
 
-body::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image:
-        linear-gradient(30deg, rgba(255, 255, 255, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.05) 87.5%, rgba(255, 255, 255, 0.05)),
-        linear-gradient(150deg, rgba(255, 255, 255, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.05) 87.5%, rgba(255, 255, 255, 0.05)),
-        linear-gradient(30deg, rgba(255, 255, 255, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.05) 87.5%, rgba(255, 255, 255, 0.05)),
-        linear-gradient(150deg, rgba(255, 255, 255, 0.05) 12%, transparent 12.5%, transparent 87%, rgba(255, 255, 255, 0.05) 87.5%, rgba(255, 255, 255, 0.05));
-    background-size: 80px 140px;
-    background-position: 0 0, 0 0, 40px 70px, 40px 70px;
-    animation: gridAnimation 30s linear infinite;
-    z-index: -2;
-    pointer-events: none;
-    opacity: 0.3;
-}
+/* グリッドアニメーションは削除（パフォーマンス改善） */
 
 @keyframes gradientAnimation {
-    0% {
+    0%, 100% {
         background-position: 0% 50%;
-    }
-    25% {
-        background-position: 50% 100%;
     }
     50% {
         background-position: 100% 50%;
-    }
-    75% {
-        background-position: 50% 0%;
-    }
-    100% {
-        background-position: 0% 50%;
     }
 }
 
@@ -95,14 +69,7 @@ body::after {
     }
 }
 
-@keyframes gridAnimation {
-    0% {
-        background-position: 0 0, 0 0, 40px 70px, 40px 70px;
-    }
-    100% {
-        background-position: 80px 140px, 80px 140px, 120px 210px, 120px 210px;
-    }
-}
+/* gridAnimation削除（パフォーマンス改善） */
 
 /* Canvas background for particles */
 #particles-canvas {
@@ -119,14 +86,13 @@ body::after {
    ヘッダー・ナビゲーション
 ======================================== */
 .main-header {
-    background-color: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.1);
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .nav-container {
@@ -214,39 +180,52 @@ body::after {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: transparent;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
     color: var(--white);
     text-align: center;
     padding-top: 80px;
     position: relative;
+    overflow: hidden;
+}
+
+#home::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 50%, rgba(233, 69, 96, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(15, 52, 96, 0.2) 0%, transparent 50%);
+    pointer-events: none;
 }
 
 .hero-content {
-    background-color: rgba(255, 255, 255, 0.15);
-    padding: 3rem 4rem;
-    border-radius: 20px;
-    backdrop-filter: blur(15px);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    position: relative;
+    z-index: 1;
 }
 
 .hero-content h2 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    color: var(--white);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
 }
 
 .hero-content p {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     margin-bottom: 2rem;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    color: #e0e7ff;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* ========================================
    メンバー紹介セクション
 ======================================== */
 #members {
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 .members-grid {
@@ -305,7 +284,7 @@ body::after {
    テーマ選択理由セクション
 ======================================== */
 #reason {
-    background-color: rgba(248, 249, 250, 0.7);
+    background-color: rgba(248, 249, 250, 0.5);
 }
 
 .reason-content {
@@ -330,7 +309,7 @@ body::after {
    手法論セクション
 ======================================== */
 #methodology {
-    background-color: rgba(248, 249, 250, 0.7);
+    background-color: rgba(248, 249, 250, 0.5);
 }
 
 /* 概要部分 */
@@ -450,6 +429,10 @@ body::after {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.5);
+
+    /* ←追加：左右に並べる */
+    display: flex;
+    gap: 2rem;
 }
 
 .example-card h4 {
@@ -482,6 +465,20 @@ body::after {
     border-radius: 4px;
     font-size: 0.95rem;
 }
+
+.example-images {
+    flex: 0 0 300px;
+    width: 300px;
+    min-width: 300px;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-self: flex-start;
+    margin-left: auto;   /* ← 画像を可能な限り右側に押しつける */
+}
+
+
 
 /* 従来の楽器との比較 */
 .methodology-comparison {
@@ -552,7 +549,7 @@ body::after {
    歴史セクション
 ======================================== */
 #history {
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 .timeline {
@@ -693,7 +690,7 @@ body::after {
    最新技術セクション
 ======================================== */
 #technology {
-    background-color: rgba(248, 249, 250, 0.7);
+    background-color: rgba(248, 249, 250, 0.5);
 }
 
 .tech-grid {
@@ -871,7 +868,7 @@ body::after {
    参考文献セクション
 ======================================== */
 #references {
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255, 255, 255, 0.6);
 }
 
 .references-content {
@@ -955,5 +952,276 @@ footer {
 
     .timeline::before {
         left: 20px;
+    }
+}
+
+/* ========================================
+   セクション背景の統一（透明度調整でパーティクルが見えるように）
+======================================== */
+#members,
+#history,
+#references {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    margin-bottom: 0;
+}
+
+#reason,
+#methodology,
+#technology {
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    margin-bottom: 0;
+}
+
+/* スクロールアニメーション */
+.fade-element {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.fade-element.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ページトップへ戻るボタン */
+#scroll-top-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+#scroll-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+#scroll-top-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+#scroll-top-btn:active {
+    transform: translateY(-2px);
+}
+
+/* 読み進み度プログレスバー */
+#reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    z-index: 10000;
+    transition: width 0.2s ease;
+    box-shadow: 0 2px 10px rgba(102, 126, 234, 0.5);
+}
+
+/* ========================================
+   体験型学習セクション
+======================================== */
+#interactive-learning {
+    background-color: var(--white);
+}
+
+.learning-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.learning-card {
+    background-color: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--gray-light);
+}
+
+.learning-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* カードヘッダー */
+.card-header {
+   background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(41, 128, 185, 0.1) 100%);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    color: var(--primary-color);  /* 白から黒系に変更 */
+    position: relative;
+    overflow: hidden;
+    border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+}
+
+.card-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.card-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    animation: float 3s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.card-header h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-color);  /* ダークカラーに変更 */
+    position: relative;
+    z-index: 1;
+    font-weight: bold;
+}
+
+.card-provider {
+    font-size: 1rem;
+    color: var(--text-light);  /* グレー系に変更 */
+    position: relative;
+    z-index: 1;
+}
+
+/* カードボディ */
+.card-body {
+    padding: 2rem;
+    flex: 1;
+}
+
+.card-description {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+}
+
+.card-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.card-features li {
+    padding: 0.8rem 0;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--gray-light);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.card-features li:last-child {
+    border-bottom: none;
+}
+
+/* カードフッター */
+.card-footer {
+    padding: 2rem;
+    background-color: #f8f9fa;
+    text-align: center;
+    border-top: 1px solid var(--gray-light);
+}
+
+.card-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    background: linear-gradient(135deg, rgba(52, 152, 219, 0.1) 0%, rgba(41, 128, 185, 0.1) 100%);
+    color: var(--primary-color);  /* 白からダークカラーに */
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+    border: 2px solid rgba(102, 126, 234, 0.3);  /* 枠線を追加 */
+}
+
+.card-button:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.25) 0%, rgba(118, 75, 162, 0.25) 100%);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+    border-color: rgba(102, 126, 234, 0.5);
+}
+
+.card-button:active {
+    transform: translateY(-1px);
+}
+
+.button-arrow {
+    font-size: 1.3rem;
+    transition: transform 0.3s ease;
+}
+
+.card-button:hover .button-arrow {
+    transform: translateX(5px);
+}
+
+.card-note {
+    font-size: 0.8rem;
+    color: var(--text-light);
+    margin-top: 1rem;
+    font-style: italic;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .learning-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .card-header {
+        padding: 2rem 1.5rem;
+    }
+    
+    .card-icon {
+        font-size: 3rem;
+    }
+    
+    .card-header h3 {
+        font-size: 1.5rem;
+    }
+    
+    .card-body {
+        padding: 1.5rem;
+    }
+    
+    .card-footer {
+        padding: 1.5rem;
     }
 }
