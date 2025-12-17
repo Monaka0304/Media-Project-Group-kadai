@@ -24,11 +24,11 @@
             
             <!-- ナビゲーションメニュー -->
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#home" class="nav-link">ホーム</a></li>
                 <li><a href="#members" class="nav-link">メンバー紹介</a></li>
                 <li><a href="#methodology" class="nav-link">方法論</a></li>
                 <li><a href="#history" class="nav-link">歴史</a></li>
                 <li><a href="#technology" class="nav-link">最新技術</a></li>
+                <li><a href="#interactive-learning" class="nav-link">シンセサイザーのデモ</a></li>
             </ul>
             
             <!-- モバイルメニュートグル -->
@@ -170,25 +170,39 @@
                 
                 <!-- エレクトーンの例 -->
                 <div class="example-card">
-                    <h4>電子オルガン → エレクトーン</h4>
-                    <p class="example-subtitle">（ヤマハ株式会社により製造・販売）</p>
-                    <ul>
-                        <li>事前にバイオリンやトランペット、ギター等の実際の楽器の音を収録</li>
-                        <li>鍵盤を弾くことで収録したデータをスピーカーなどから再生（AWM音源）</li>
-                        <li>鍵盤を押し込む強さによって音色と音量を変更</li>
-                    </ul>
+                    <div class="example-content">
+                        <h4>電子オルガン → エレクトーン</h4>
+                        <p class="example-subtitle">（ヤマハ株式会社により製造・販売）</p>
+                        <ul>
+                            <li>事前にバイオリンやトランペット、ギター等の実際の楽器の音を収録</li>
+                            <li>鍵盤を弾くことで収録したデータをスピーカーなどから再生（AWM音源）</li>
+                            <li>鍵盤を押し込む強さによって音色と音量を変更</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-images">
+                        <img src="YAMAHAエレクトーン.jpg" alt="YAMAHA エレクトーン">
+                    </div>     
                 </div>
+          
                 
                 <!-- シンセサイザーの例 -->
                 <div class="example-card">
-                    <h4>シンセサイザー</h4>
-                    <ul>
-                        <li><strong>オシレーター</strong>：波形の生成</li>
-                        <li><strong>フィルター</strong>：音色の倍音成分の制御</li>
-                        <li><strong>エンベロープ</strong>：音形や輪郭を調整</li>
-                        <li><strong>モジュレーション</strong>：音量や音色に周期的な変調を付加</li>
-                    </ul>
-                    <p class="example-note">FM音源（変調方式）やPCM音源による音の生成、CPUによって音信号を合成するソフトウェア・シンセサイザーも存在</p>
+                    <div class="example-content">
+                        <h4>シンセサイザー</h4>
+                        <ul>
+                            <li><strong>オシレーター</strong>：波形の生成</li>
+                            <li><strong>フィルター</strong>：音色の倍音成分の制御</li>
+                            <li><strong>エンベロープ</strong>：音形や輪郭を調整</li>
+                            <li><strong>モジュレーション</strong>：音量や音色に周期的な変調を付加</li>
+                        </ul>
+                        <p class="example-note">
+                            FM音源（変調方式）やPCM音源による音の生成、CPUによるソフトウェア・シンセサイザーも存在
+                        </p>
+                </div>
+
+                <div class="example-images">
+                    <img src="Degital_Synthesizer.jpg" alt="デジタルシンセサイザー">
                 </div>
             </div>
             
@@ -402,6 +416,51 @@
     </div>
 </div>
     </section>
+
+  <!-- ========================================
+     体験型学習セクション
+======================================== -->
+<section id="interactive-learning">
+    <div class="container">
+        <h2 class="section-title">シンセサイザーのデモ</h2>
+        <p class="section-subtitle">SYNTHESIZER DEMONSTRATION</p>
+
+        <div class="learning-grid">
+            <!-- Learning Synthsカード -->
+            <div class="learning-card">
+                <div class="card-header">
+                    <div class="card-icon">🎹</div>
+                    <h3>Learning Synths</h3>
+                    <p class="card-provider">by Ableton</p>
+                </div>
+                
+                <div class="card-body">
+                    <p class="card-description">
+                        Abletonが提供する無料の学習サイト。
+                        シンセサイザーの基礎から音作りまで、実際に音を鳴らしながら学べる。
+                    </p>
+                    
+                    <ul class="card-features">
+                        <li>１，ブラウザ上で実際に音を鳴らせる</li>
+                        <li>２，シンセサイザーの仕組みを視覚的に理解</li>
+                        <li>３，完全無料・登録不要</li>
+                    </ul>
+                </div>
+                
+                <div class="card-footer">
+                    <a href="https://learningsynths.ableton.com/ja/playground" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="card-button">
+                        体験してみる
+                        <span class="button-arrow">→</span>
+                    </a>
+                    <p class="card-note">※ 外部サイトへ移動します</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
     <!-- ========================================
          参考文献セクション
